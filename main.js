@@ -35,7 +35,7 @@ var rice={
             x=new Date(Number(x)+32400000)
             var d=x.getDate(), m=x.getMonth();
         }
-        var tx = `${m+1}월 ${d}일`
+        var tx = `${m+1}월 ${d}일`;
         document.getElementById('date').innerHTML=tx;
         return tx;
     },
@@ -54,6 +54,9 @@ var rice={
 
     },
     oneclick:function(){
+        //console.log(location.hash)
+        if(location.hash=='#gmt')  rice.gmt=true;//document.getElementById('gmt').click()
+        else if(location.hash=='#kst') rice.gmt=false;//document.getElementById('kst').click()
         rice.get(()=>{rice.show(rice.today_menu(0))});
     }
     }

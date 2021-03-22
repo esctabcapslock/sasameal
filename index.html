@@ -28,7 +28,6 @@
         }
         table thead{
             background-color: #d9edf7;
-            
         }
         table th{
             border-bottom-width: 2px;
@@ -50,19 +49,21 @@
 </head>
 <body>
     <script>
-     if(screen.logicalXDPI){alert('본 문서는 인터넷 익스플로러를 지원하지 않습니다.')}
+     if(!window.fetch){alert('본 문서는 인터넷 익스플로러에서 작동하지 않습니다.')}
     </script>
-    <a href='https://sasa.riroschool.kr/'><h2>오늘의 급식 (<span id='date'></span>)</h2></a>
+    <a href='https://sasa.riroschool.kr/home.php'><h2>오늘의 급식 (<span id='date'></span>)</h2></a>
     <script> 
         window.onload=rice.oneclick;
         window.onchange=rice.oneclick;
     </script>
+    <div style="display: none">
     <form>
     <input list="gmt" onclick='rice.gmt=true' type="radio" name="time" id='gmt'>
     <input list="kst" onclick='rice.gmt=false' checked type="radio" name='time' id='kst'>
     </form>
     <label for="gmt" name='gmt'>gmt</label>
     <label for="kst" name='kst'>kst</label>
+    </div>
     <br>
     <br>
     <table>
