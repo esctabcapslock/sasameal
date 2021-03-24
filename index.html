@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width">
     <title>🍗 오늘의 급식</title>
     <script src="main.js"></script>
+    <script>
+     if(!window.fetch){alert('본 문서는 인터넷 익스플로러에서 작동하지 않습니다.')}
+        window.onload=rice.oneclick;
+        window.onchange=rice.oneclick;
+    </script>
     
     <style>
     body {
@@ -18,7 +23,7 @@
     a:hover {color: black}
     a {color: black}
     a,img {border: 0;}
-</style>
+    </style>
     
     <style>
         table{
@@ -44,53 +49,45 @@
         #info{
             font-size: 0.8em !important;
         }
-        
     </style>
+    
+    
 </head>
 <body>
-    <script>
-     if(!window.fetch){alert('본 문서는 인터넷 익스플로러에서 작동하지 않습니다.')}
-    </script>
-    <a href='https://sasa.riroschool.kr/home.php'><h2>오늘의 급식 (<span id='date'></span>)</h2></a>
-    <script> 
-        window.onload=rice.oneclick;
-        window.onchange=rice.oneclick;
-    </script>
-    <div style="display: none">
-    <form>
-    <input list="gmt" onclick='rice.gmt=true' type="radio" name="time" id='gmt'>
-    <input list="kst" onclick='rice.gmt=false' checked type="radio" name='time' id='kst'>
-    </form>
-    <label for="gmt" name='gmt'>gmt</label>
-    <label for="kst" name='kst'>kst</label>
-    </div>
+    <header>
+        <h2><a href='https://sasa.riroschool.kr/home.php'><span id='today_tom'>오늘</span>의 급식 (<span id='date'></span>)</a></h2>
+    </header>
+    <nav>
+        <button id='내일' onclick="rice.내일(this)">내일?</button>
+        <div style="display: none">
+        <form>
+            <input list="gmt" onclick='rice.gmt=true' type="radio" name="time" id='gmt'>
+            <input list="kst" onclick='rice.gmt=false' checked type="radio" name='time' id='kst'>
+        </form>
+        <label for="gmt" name='gmt'>gmt</label>
+        <label for="kst" name='kst'>kst</label>
+        </div>
+    </nav>
     <br>
     <br>
-    <table>
-        <thead>
-            <tr>
-                <th>아침</th>
-                <th>점심</th>
-                <th>저녁</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr id='시간'>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
+    <main>
+        <table>
+            <thead><tr><th>아침</th><th>점심</th><th>저녁</th></tr></thead>
+            <tbody><tr id='시간'><td></td><td></td><td></td></tr></tbody>
+        </table>
+    </main>
+    
     <br><br>
-    <div id='info'>
-<h4>◎ 알레르기 정보</h4>
- 1.난류 2.우유 3.메밀 4.땅콩 5.대두 6.밀 7.고등어 8.게 9.새우 10.돼지고기 11.복숭아 12.토마토 13.아황산류 14.호두 15.닭고기 16.쇠고기 17.오징어 18.조개류(굴, 전복, 홍합 포함) 19.잣
+    <footer>
+        <div id='info'>
+        <h4>◎ 알레르기 정보</h4>
+         1.난류 2.우유 3.메밀 4.땅콩 5.대두 6.밀 7.고등어 8.게 9.새우 10.돼지고기 11.복숭아 12.토마토 13.아황산류 14.호두 15.닭고기 16.쇠고기 17.오징어 18.조개류(굴, 전복, 홍합 포함) 19.잣
 
-<h4>◎ 식재료 원산지 </h4>
- 쇠고기(한우)- 1등급이상, 돼지고기: 국내산1등급, 닭,오리고기, 달걀: 국내산1등급 무항생제, 수산물: 국산(수급불가시 수입산 사용)
+        <h4>◎ 식재료 원산지 </h4>
+         쇠고기(한우)- 1등급이상, 돼지고기: 국내산1등급, 닭,오리고기, 달걀: 국내산1등급 무항생제, 수산물: 국산(수급불가시 수입산 사용)
 
-<h4>◎ 식품 수급상황에 따라 식단이 변경될 수 있습니다.</h4>
-    </div>
+        <h4>◎ 식품 수급상황에 따라 식단이 변경될 수 있습니다.</h4>
+        </div>
+    </footer>
 </body>
 </html>

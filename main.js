@@ -22,14 +22,14 @@ var rice={
             return response.text('ansi');
         }).then((data) => {
             var arr=csv2arr(data)
-            console.log(arr)
+            //console.log(arr)
             this.table=arr;
         }).then(callback)
     },
     gmt:false,
-    get_date:function(){
+    get_date:function(plus){
         var gmt=this.gmt
-        var x=new Date();
+        var x=new Date(Number(new Date())+1000*3600*24*plus)
         var d=x.getDate(), m=x.getMonth(), h = x.getHours();
         if (gmt && (h+9)>=24){ //gmt라면,,,
             x=new Date(Number(x)+32400000)
@@ -42,7 +42,7 @@ var rice={
     today_menu:function(x){
         if (!this.table) return false;
         if (!x) x=0;
-        var ind = this.table[1].indexOf(this.get_date()) + x;
+        var ind = this.table[1].indexOf(this.get_date(x));
         
         return [this.table[2][ind],  this.table[3][ind],  this.table[4][ind]]
     },
@@ -51,12 +51,23 @@ var rice={
         k[0].innerText=arr[0].replaceAll('↵','\n')
         k[1].innerText=arr[1].replaceAll('↵','\n')
         k[2].innerText=arr[2].replaceAll('↵','\n')
-
     },
     oneclick:function(){
         //console.log(location.hash)
         if(location.hash=='#gmt')  rice.gmt=true;//document.getElementById('gmt').click()
         else if(location.hash=='#kst') rice.gmt=false;//document.getElementById('kst').click()
         rice.get(()=>{rice.show(rice.today_menu(0))});
+    },
+    내일:function(ele){
+        var o=document.getElementById('today_tom')
+        if(ele.innerHTML=='내일?'){
+            ele.innerHTML='오늘?';
+            o.innerHTML='내일'
+            rice.show(rice.today_menu(1))
+        }else if(ele.innerHTML=='오늘?'){
+            ele.innerHTML='내일?';
+             o.innerHTML='오늘'
+            rice.show(rice.today_menu(0))
+        }
     }
     }
