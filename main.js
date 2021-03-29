@@ -17,6 +17,29 @@ function csv2arr(data){
         return arr;
 }
 var rice={
+    niceapi:function(x,callback){
+        var ar = this.get_date(x).split(" ")
+        ar[0]=ar[0].length==2?'0'+ar[0].substr(0,1):ar[0].substr(0,2);
+        ar[1]=ar[1].length==2?'0'+ar[1].substr(0,1):ar[1].substr(0,2);
+        var url = `https://open.neis.go.kr/hub/mealServiceDietInfo?ATPT_OFCDC_SC_CODE=I10&SD_SCHUL_CODE=9300181&MLSV_YMD=${(new Date()).getFullYear()}${ar[0]}${ar[1]}`;
+       // console.log(url)
+        fetch(url).then((response) => {
+            return response.text('ansi');
+        }).then((data) => {
+            if(!data) rice.get(()=>{rice.show(rice.today_menu(x))});
+          //console.log(data);
+            this.apivalue=data;
+            var oParser = new DOMParser();
+            var oDOM = oParser.parseFromString(data, "text/xml");
+            var k=oDOM.querySelectorAll('DDISH_NM')
+            var l=oDOM.querySelectorAll('NTR_INFO')
+            if(!k || !l) rice.get(()=>{rice.show(rice.today_menu(x))});
+            callback(
+                [k[0].childNodes[0].data,k[1].childNodes[0].data,k[2].childNodes[0].data],
+                [l[0].childNodes[0].data,l[1].childNodes[0].data,l[2].childNodes[0].data],
+            );
+        });
+    },
     get: function (callback) {
         fetch('rice.csv').then((response) => {
             return response.text('ansi');
@@ -46,28 +69,40 @@ var rice={
         
         return [this.table[2][ind],  this.table[3][ind],  this.table[4][ind]]
     },
-    show:function(arr){
+    show:function(arr, cal){
+        console.log(arr)
+        var f=str=>str.replaceAll('↵','\n').replaceAll('\n','<br>')
         var k = document.getElementById('시간').children
-        k[0].innerText=arr[0].replaceAll('↵','\n')
-        k[1].innerText=arr[1].replaceAll('↵','\n')
-        k[2].innerText=arr[2].replaceAll('↵','\n')
+        k[0].innerHTML=arr[0].replaceAll('↵','\n').replaceAll('\n','<br>')
+        k[1].innerHTML=arr[1].replaceAll('↵','\n').replaceAll('\n','<br>')
+        k[2].innerHTML=arr[2].replaceAll('↵','\n').replaceAll('\n','<br>')
+        if(!cal) return;
+            
+        var n = document.getElementById('영양').children
+        n[0].innerHTML=cal[0].replaceAll('↵','\n').replaceAll('\n','<br>')
+        n[1].innerHTML=cal[1].replaceAll('↵','\n').replaceAll('\n','<br>')
+        n[2].innerHTML=cal[2].replaceAll('↵','\n').replaceAll('\n','<br>')
     },
     oneclick:function(){
         //console.log(location.hash)
         if(location.hash=='#gmt')  rice.gmt=true;//document.getElementById('gmt').click()
         else if(location.hash=='#kst') rice.gmt=false;//document.getElementById('kst').click()
-        rice.get(()=>{rice.show(rice.today_menu(0))});
+        //rice.get(()=>{rice.show(rice.today_menu(0))});
+        rice.niceapi(0,rice.show)
     },
     내일:function(ele){
         var o=document.getElementById('today_tom')
         if(ele.innerHTML=='내일?'){
             ele.innerHTML='오늘?';
             o.innerHTML='내일'
-            rice.show(rice.today_menu(1))
+            //rice.show(rice.today_menu(1))
+            rice.niceapi(1,rice.show)
         }else if(ele.innerHTML=='오늘?'){
             ele.innerHTML='내일?';
              o.innerHTML='오늘'
-            rice.show(rice.today_menu(0))
+            //rice.show(rice.today_menu(0))
+            rice.niceapi(0,rice.show)
         }
     }
-    }
+}
+//https://open.neis.go.kr/hub/mealServiceDietInfo?ATPT_OFCDC_SC_CODE=I10&SD_SCHUL_CODE=9300181&MLSV_YMD=202103
