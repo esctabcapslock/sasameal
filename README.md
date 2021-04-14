@@ -1,7 +1,7 @@
 # [오늘의 급식!](https://esctabcapslock.github.io/sasameal/index)
 
 
-[바로가기](https://esctabcapslock.github.io/sasameal/index)
+[바로보기](https://esctabcapslock.github.io/sasameal/index)
 
 - 기존 사이트가 없어져서 만들었어요.
 - 오늘의 급식을 알려줍니다.
