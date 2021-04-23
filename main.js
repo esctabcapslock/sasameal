@@ -33,11 +33,16 @@ var rice={
             var oDOM = oParser.parseFromString(data, "text/xml");
             var k=oDOM.querySelectorAll('DDISH_NM')
             var l=oDOM.querySelectorAll('NTR_INFO')
+            console.log(k,l)
             if(!k || !l) rice.get(()=>{rice.show(rice.today_menu(x))});
+            console.log([...k], typeof [...k]);
             callback(
-                [k[0].childNodes[0].data,k[1].childNodes[0].data,k[2].childNodes[0].data],
-                [l[0].childNodes[0].data,l[1].childNodes[0].data,l[2].childNodes[0].data],
+                [...k].map((value) => value.childNodes[0].data), 
+                [...l].map((value) => value.childNodes[0].data)
             );
+            
+//                [k[0].childNodes[0].data, k[1].childNodes[0].data, k[2]||k[2].childNodes[0].data],
+//                [l[0].childNodes[0].data, l[1].childNodes[0].data, l[2]||l[2].childNodes[0].data],
         });
     },
     get: function (callback) {
@@ -75,13 +80,13 @@ var rice={
         var k = document.getElementById('시간').children
         k[0].innerHTML=arr[0].replaceAll('↵','\n').replaceAll('\n','<br>')
         k[1].innerHTML=arr[1].replaceAll('↵','\n').replaceAll('\n','<br>')
-        k[2].innerHTML=arr[2].replaceAll('↵','\n').replaceAll('\n','<br>')
+        !arr[2]||(k[2].innerHTML=arr[2].replaceAll('↵','\n').replaceAll('\n','<br>'))
         if(!cal) return;
             
         var n = document.getElementById('영양').children
         n[0].innerHTML=cal[0].replaceAll('↵','\n').replaceAll('\n','<br>')
         n[1].innerHTML=cal[1].replaceAll('↵','\n').replaceAll('\n','<br>')
-        n[2].innerHTML=cal[2].replaceAll('↵','\n').replaceAll('\n','<br>')
+        !cal[2]||(n[2].innerHTML=cal[2].replaceAll('↵','\n').replaceAll('\n','<br>'))
     },
     oneclick:function(){
         //console.log(location.hash)
