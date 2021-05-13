@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>남은시간</title>
+    <meta name="viewport" content="width=device-width">
+    <script>
+    if(!window.fetch) alert('익스플로러 지원 안함');
+    </script>
+    <script src="timer.js"></script>
+    <script>
+       window.onload=()=>{
+        var t = new Timer()
+        }
+    </script>
+    <style> 
+        @font-face {
+            font-family: 'clockicons';
+            font-style: normal;
+            font-weight: 400;
+            src: url("clockicons.woff2");
+        }
+
+        *{
+            margin: 0;
+            border: 0;
+            padding: 0;
+        }
+        main{
+            position: absolute;
+            top: 18%;
+            width: 100%;
+            
+        }
+        .tfont{
+            font-family: clockicons, sans-serif;
+        }
+        #timer{
+            
+            margin:  80px auto;
+            display: table;
+            font-size: 16vw;
+        }
+        .t_num{
+            margin-left: 2vw;
+        }
+        #일{
+            font-size: 5vw;
+        }
+        #exp{
+            position: absolute;
+            margin: 40px;
+            right: 0;
+        }
+        #exp>div{
+            text-align: right;
+            padding: 3px
+        }
+    </style>
+</head>
+<body>
+    <main>
+        
+        <div id='timer' class='tfont'>
+            <span id='day' class="t_num"></span><span id='일'></span><span id='time' class="t_num"></span>
+        </div>
+        <div id='exp'>
+        <div id='week'>시험까지 <span id='week_n' class='tfont'>0</span>주 남음</div>
+        <div id='endtime'></div>
+        </div>
+        
+    </main>
+</body>
+</html>
