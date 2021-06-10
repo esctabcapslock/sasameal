@@ -78,12 +78,15 @@ var rice={
         console.log(arr)
         var f=str=>str.replaceAll('↵','\n').replaceAll('\n','<br>')
         var k = document.getElementById('시간').children
+        var n = document.getElementById('영양').children
+        k[0].innerHTML=k[1].innerHTML=k[2].innerHTML=''
+        n[0].innerHTML=n[1].innerHTML=n[2].innerHTML=''
+        
+        if(!cal.length) return;
         k[0].innerHTML=arr[0].replaceAll('↵','\n').replaceAll('\n','<br>')
         k[1].innerHTML=arr[1].replaceAll('↵','\n').replaceAll('\n','<br>')
         !arr[2]||(k[2].innerHTML=arr[2].replaceAll('↵','\n').replaceAll('\n','<br>'))
-        if(!cal) return;
-            
-        var n = document.getElementById('영양').children
+        
         n[0].innerHTML=cal[0].replaceAll('↵','\n').replaceAll('\n','<br>')
         n[1].innerHTML=cal[1].replaceAll('↵','\n').replaceAll('\n','<br>')
         !cal[2]||(n[2].innerHTML=cal[2].replaceAll('↵','\n').replaceAll('\n','<br>'))
